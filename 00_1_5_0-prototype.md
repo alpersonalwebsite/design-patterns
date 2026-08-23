@@ -1,31 +1,26 @@
 # Prototype
 
-<!-- 
-  TODO:
-  What is?
-  Good for when we want to create new object with more resource we want to use or have available
-  We can save resources creating a copy of any object that is in memory
-  An object that supports cloning is called a prototype.
+The prototype pattern builds a new object by **copying one you already have**, rather than constructing it
+from scratch. An object that supports being copied this way is the prototype, and the copy is made by the
+object itself: `clone()` is a method on it, not a function somewhere else that knows its internals.
 
+Reach for it when building the thing is the expensive part and you already have one in memory: an object
+assembled from several network calls, a parsed document, a configured client. Copying what you have beats
+paying for the setup again.
 
-  Shallow copy:    Object.assign({}, obj)
-  Deep copy:       JSON.parse(JSON.stringify(obj))  it doesnt copy functions
--->
+In the sample below:
 
-* We have the `User` class that has the property `data` and the method `clone()`
-* We create a new object instantiating the class. Then, we clone that object and assign the returned value to the variable `copiedObject`
-* If we change the vakue of a nested property of the object `copiedObject` the `originalObject` WILL not be affected.
+* `User` holds its state in `data` and exposes `clone()`.
+* We build one object, clone it, and keep the result as `copiedObject`.
+* Changing a nested property of `copiedObject` leaves `originalObject` alone, which is what makes it a copy
+  rather than a second name for the same thing. That independence is not automatic, and
+  [shallow vs deep copy](./00_1_5_1-prototype-shallow-vs-deep-copy.md) is the page about how it is achieved
+  and what it costs.
 
-Important: Since the method `clone()` returns a new `User` instead of a user object, ALL methods are available in the new objects.
-
----
-
-Depending oin the shape of you data youy might want to do a `shallow` or `deep` copy.
-
-Shallow vs Deep copy [Shallow vs Deep copy](./00_1_5_1-prototype-shallow-vs-deep-copy.md).
-
----
-
+Important: `clone()` returns `new User(copiedData)`, not the copied data on its own. So the result is a real
+`User` with all its methods, including `clone()` itself, which means you can clone a clone. Returning the
+bare object would give you something that prints the same and has no behaviour, and that difference is the
+easiest thing to get wrong here.
 
 ```ts
 interface IUser {

@@ -44,6 +44,10 @@ const tsc = join(repo, 'node_modules', 'typescript', 'bin', 'tsc')
 // the page is partly ABOUT that field being invisible to console.log.
 const TSC_ARGS = ['--strict', '--target', 'es2022', '--module', 'commonjs']
 
+// Tags that are prose or shell rather than samples: counted, reported, and not
+// compiled. Anything outside this set and `ts` is a failure, never a silent skip.
+const SKIP_TAGS = new Set(['sh', 'text'])
+
 const failures = []
 const fail = (where, message, detail) => failures.push({ where, message, detail })
 
@@ -113,6 +117,7 @@ let compiled = 0
 let ran = 0
 let claims = 0
 let bareFences = 0
+let skipped = 0
 
 const files = readdirSync(repo).filter((f) => f.endsWith('.md')).sort()
 
@@ -132,8 +137,19 @@ for (const file of files) {
       }
       continue
     }
+    if (SKIP_TAGS.has(b.tag)) {
+      skipped++
+      continue
+    }
     if (b.tag !== 'ts') {
-      fail(`${file}:${b.line}`, `unexpected fence tag \`${b.tag}\`; these notes are TypeScript only`)
+      // NAMED, not ignored. A tag this script does not recognise is the case
+      // that must never pass quietly: a `ts` block mistyped as `TS` or `tsx`
+      // would otherwise be skipped, and skipping everything looks exactly like
+      // checking everything at the exit code.
+      fail(
+        `${file}:${b.line}`,
+        `unrecognised fence tag \`${b.tag}\`; expected \`ts\`, or one of ${[...SKIP_TAGS].join(', ')}`,
+      )
       continue
     }
     if (hidden.some(([from, to]) => b.at >= from && b.at <= to)) {
@@ -219,7 +235,7 @@ console.log(
   `${files.length} notes files: ${blockCount} ts block(s), ${compiled} compiled, ` +
     `${ran} ran, ${claims} output claim(s) matched`,
 )
-console.log(`  untagged fences: ${bareFences}`)
+console.log(`  untagged fences: ${bareFences}, non-sample blocks skipped: ${skipped}`)
 
 if (failures.length === 0) {
   console.log('no failures')

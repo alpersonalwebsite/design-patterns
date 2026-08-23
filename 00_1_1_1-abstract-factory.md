@@ -1,12 +1,18 @@
 # Abstract Factory
 
-<!-- 
-  TODO:
-  What is?
-  Factory that returns factories?
-  It can also return Builder, Prototypes, Singletons and other design pattern implementations
+An abstract factory is a factory over factories. Where a plain [factory](./00_1_1_0-factory.md) picks a
+class, an abstract factory picks the **family** the class belongs to and delegates: `AnimalFactory` does not
+know how to build a Husky, it knows that dog breeds are `DogFactory`'s problem.
 
--->
+That is the whole distinction, and it is easy to overstate. Reach for it when you have more than one group of
+related things to build and the grouping itself is a decision worth naming. With one family, a factory is
+enough.
+
+Nothing says the thing it returns has to be built by a factory either. The delegate can be a builder, a
+prototype's `clone()`, or a singleton's accessor, whichever the family needs. That is the sense in which the
+pattern is "abstract": it commits to a family, not to a construction technique.
+
+In the sample below:
 
 * We have the `DogFactory`, which returns a new instance of `FrenchBulldog` or `Husky`.
 * We have the `CatFactory`, which returns a new instance of `Ragdoll`.

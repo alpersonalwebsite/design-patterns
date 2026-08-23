@@ -1,16 +1,29 @@
 # Factory
 
-<!-- 
-  TODO:
-  What is?
-  Abstraction between the object creation and where it is used?
-  Defers the creation of the objects to a subclass
-  Combination of Single Responsability and Open/Closed Principles?
--->
+A factory is a function or class whose job is to decide **which** object to build, so that the code asking
+for one does not have to know. The caller says what it wants in the abstract ("a user with the reader role")
+and gets back something that satisfies a shared interface, with the choice of concrete class made somewhere
+it can be changed once.
 
-* We have the interface `IUser` which is the `blueprint` of the base class `User` (or, what's the same, `User` class implements the interface `IUSer`)
-* We have the subclasses `Reader`, `Writer` and `Admin` which extend the base class `User`.
-* We have the factory `UserFactory` which is going to build specific classes of `Users` without the calling class knowing how Users are created.
+Two things fall out of that, and they are the reason the pattern is worth the indirection:
+
+* **The creation is separated from the use.** Nothing outside the factory mentions `Reader`, `Writer` or
+  `Admin`. Add a fourth role and the callers do not change.
+* **Each class keeps one job.** The factory decides which class; the class knows how to be itself. That is
+  the single responsibility principle, and the "add a role without editing the callers" part is the
+  open/closed principle, which is the pair this pattern is usually introduced to demonstrate.
+
+In the sample below:
+
+* `IUser` is the interface, the shape everything the factory returns will have, and `User` is the base class
+  that implements it.
+* `Reader`, `Writer` and `Admin` extend `User`, each setting the role and salary that define it.
+* `UserFactory.getUser()` takes a name and a `Role` and returns an `IUser`. The caller never names a
+  subclass.
+
+Note the return type: `getUser()` is declared to return `IUser`, not `Reader | Writer | Admin`. That is
+deliberate and it is most of the value. The narrower type would leak the very decision the factory exists to
+own.
 
 ```ts
 enum Role {
