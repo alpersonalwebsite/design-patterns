@@ -1,0 +1,30 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Build and check output. The checker compiles each sample into a temporary
+# directory outside the repository, but a stray local run should not be
+# committable either.
+dist/
+*.tsbuildinfo
+
+# Credentials and secrets. Nothing in these notes needs any, which is exactly
+# when an accidental commit happens. Both glob forms are listed because neither
+# implies the other: the leading-dot form matches .env and .env.local, the
+# trailing form matches names like audit.env.
+.env
+.env.*
+*.env
+secrets/
+credentials*
+*.pem
+*.key
+
+# Logs, databases, editor and OS noise.
+*.log
+*.sqlite
+*.db
+__pycache__/
+.idea/
+.vscode/
+.DS_Store
