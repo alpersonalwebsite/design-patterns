@@ -40,3 +40,12 @@ TypeScript is pinned to **4.8.4**, the release that was current when these notes
 2022), and it is the only dependency. That is deliberate: the samples should behave the way they did when the
 notes were made, not the way a compiler five major versions later would treat them. Where the difference is
 visible, the notes say so.
+
+## Continuous integration
+
+Both checks run on every push and pull request, across Node 18, 20, 22 and 24.
+
+The matrix is not thoroughness for its own sake. The sample checker compares against the exact text
+`console.log` produces, and that formatting comes from `util.inspect`, which is a Node implementation detail
+rather than a specified behaviour. So the matrix is what establishes that the output written in these notes is
+a property of the samples and not of the machine they were captured on.

@@ -4,7 +4,9 @@
   "private": true,
   "description": "Notes on creational design patterns: factory, abstract factory, singleton, builder and prototype.",
   "scripts": {
-    "test": "node scripts/check-samples.mjs"
+    "test": "node scripts/check-samples.mjs && node scripts/check-links.mjs",
+    "test:samples": "node scripts/check-samples.mjs",
+    "test:links": "node scripts/check-links.mjs"
   },
   "devDependencies": {
     "typescript": "4.8.4"
