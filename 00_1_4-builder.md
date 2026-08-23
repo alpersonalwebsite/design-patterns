@@ -88,22 +88,14 @@ const reader = ReaderDirector.construct('Peter');
 const writer = WriterDirector.construct('Wendy');
 
 console.log(reader);
-// User: {
-//   "name": "",
-//   "salary": 0,
-//   "role": "reader"
-// } 
+// User { name: 'Peter', salary: 0, role: 'reader' }
 
 console.log(writer);
-// User: {
-//   "name": "",
-//   "salary": 100,
-//   "role": "writer"
-// } 
+// User { name: 'Wendy', salary: 100, role: 'writer' }
 
 console.log(reader.construction());
-// "I'm a reader. My name is Peter. My salary is 0" 
+// I'm a reader. My name is Peter. My salary is 0
 
 console.log(writer.construction());
-// "I'm a writer. My name is Wendy. My salary is 100"
+// I'm a writer. My name is Wendy. My salary is 100
 ```

@@ -70,7 +70,7 @@ class LeaderBoard {
 let leaderBoard = new LeaderBoard()
 
 console.log(leaderBoard);
-// LeaderBoard: {} 
+// LeaderBoard {}
 
 type Players = 'Peter' | 'Wendy' | 'Hook'
 
@@ -90,9 +90,7 @@ let game1Results: IGame = {
 leaderBoard.addWinner(game1Results.winner, game1Results.points);
 
 leaderBoard.show();
-// {
-//   "Peter": 1
-// } 
+// { Peter: 1 }
 
 // Wendy plays aganist Hook and wins
 let game2Results: IGame = {
@@ -104,9 +102,7 @@ let game2Results: IGame = {
 leaderBoard.addWinner(game2Results.winner, game2Results.points);
 
 leaderBoard.show();
-// {
-//   "Peter": 1
-// } 
+// { Peter: 1, Wendy: 1 }
 
 // Wendy plays aganist Peter and wins
 let game3Results: IGame = {
@@ -118,24 +114,15 @@ let game3Results: IGame = {
 leaderBoard.addWinner(game3Results.winner, game3Results.points);
 
 leaderBoard.show();
-// {
-//   "Peter": 1,
-//   "Wendy": 2
-// }
+// { Peter: 1, Wendy: 2 }
 
 
 const lead = new LeaderBoard();
 lead.show();
-// {
-//   "Peter": 1,
-//   "Wendy": 2
-// }
+// { Peter: 1, Wendy: 2 }
 
 leaderBoard.show();
-// {
-//   "Peter": 1,
-//   "Wendy": 2
-// }
+// { Peter: 1, Wendy: 2 }
 ```
 
 

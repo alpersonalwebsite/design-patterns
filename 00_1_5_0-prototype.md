@@ -61,47 +61,15 @@ const originalObject = new User({ name: 'Peter', age: 33, hobbies: [ 'writing' ]
 
 const copiedObject = originalObject.clone();
 
-console.log(originalObject, copiedObject);
-
-//  User: {
-//   "userObject": {
-//     "name": "Peter",
-//     "age": 33,
-//     "hobbies": [
-//       "writing"
-//     ]
-//   }
-// },  
-// User: {
-//   "userObject": {
-//     "name": "Peter",
-//     "age": 33,
-//     "hobbies": [
-//       "writing"
-//     ]
-//   }
-// } 
+console.log('original:', originalObject);
+// original: User { data: { name: 'Peter', age: 33, hobbies: [ 'writing' ] } }
+console.log('copy    :', copiedObject);
+// copy    : User { data: { name: 'Peter', age: 33, hobbies: [ 'writing' ] } }
 
 copiedObject.data.age = 11;
 
-console.log(originalObject, copiedObject);
-
-// User: {
-//   "data": {
-//     "name": "Peter",
-//     "age": 33,
-//     "hobbies": [
-//       "writing"
-//     ]
-//   }
-// },  
-// User: {
-//   "data": {
-//     "name": "Peter",
-//     "age": 11,
-//     "hobbies": [
-//       "writing"
-//     ]
-//   }
-// } 
+console.log('original:', originalObject);
+// original: User { data: { name: 'Peter', age: 33, hobbies: [ 'writing' ] } }
+console.log('copy    :', copiedObject);
+// copy    : User { data: { name: 'Peter', age: 11, hobbies: [ 'writing' ] } }
 ```

@@ -70,27 +70,15 @@ class UserFactory {
   }
 }
 
-const reader = UserFactory.getUser('Peter', 0);
+const reader = UserFactory.getUser('Peter', Role.READER);
 console.log(reader);
-// Reader: {
-//   "name": "Peter",
-//   "role": 0,
-//   "salary": 1
-// } 
+// Reader { name: 'Peter', role: 0, salary: 1 }
 
-const writer = UserFactory.getUser('Wendy', 1);
+const writer = UserFactory.getUser('Wendy', Role.WRITER);
 console.log(writer);
-// Writer: {
-//   "name": "Wendy",
-//   "role": 1,
-//   "salary": 2
-// } 
+// Writer { name: 'Wendy', role: 1, salary: 2 }
 
-const admin = UserFactory.getUser('', 2);
+const admin = UserFactory.getUser('Hook', Role.ADMIN);
 console.log(admin);
-// Admin: {
-//   "name": "",
-//   "role": 2,
-//   "salary": 3
-// } 
+// Admin { name: 'Hook', role: 2, salary: 3 }
 ```
