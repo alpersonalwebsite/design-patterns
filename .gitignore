@@ -30,6 +30,19 @@ credentials*
 *.pem
 *.key
 
+# SSH private keys, which the two patterns above do NOT cover: an SSH key in its
+# default filename has no extension at all. `id_rsa*` on its own is not enough
+# either, because ssh-keygen's default type is ed25519 now, not rsa (man
+# ssh-keygen: "ed25519 (the default)"), so id_ed25519 is the name a key generated
+# today gets and id_rsa is the legacy one. Enumerated rather than globbed as
+# `id_*`, which would also match ordinary source files like id_generator.js.
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
+*.ppk
+.ssh/
+
 # Logs, databases, editor and OS noise. Both sqlite spellings: the extension is
 # a convention rather than a rule, and .sqlite3 is at least as common as .sqlite.
 *.log
