@@ -1,9 +1,25 @@
+# Runs both checks on every push and pull request, across four Node versions.
+#
+# THE MATRIX IS A QUESTION, not thoroughness. check-samples.mjs compares against the exact text
+# `console.log` produces, and that formatting comes from `util.inspect`, which is a Node implementation
+# detail rather than a specified behaviour: `Map(1) { 'favourite' => 1 }`, the spacing inside
+# `[ 'writing' ]`, where a long object dump wraps. All of it was captured on one machine. The matrix is what
+# establishes that the output written in the notes is a property of the samples rather than of that machine.
+#
+# There IS an install step here, unlike the sibling notes repositories: TypeScript is a real dependency, so
+# `npm ci` against the committed lockfile.
+
 name: checks
 
 on:
   push:
     branches: [master]
   pull_request:
+
+# Read-only, explicitly. Neither check writes anything, and the default token permissions are broader than
+# that.
+permissions:
+  contents: read
 
 jobs:
   test:

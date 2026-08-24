@@ -9,20 +9,32 @@ dist/
 *.tsbuildinfo
 
 # Credentials and secrets. Nothing in these notes needs any, which is exactly
-# when an accidental commit happens. Both glob forms are listed because neither
-# implies the other: the leading-dot form matches .env and .env.local, the
-# trailing form matches names like audit.env.
-.env
-.env.*
+# when an accidental commit happens.
+#
+# BOTH glob forms, because neither implies the other. `.env*` is a prefix glob:
+# it catches .env, .env.local and .envrc, the last of which direnv uses and
+# people put exported secrets in. `*.env` is a suffix glob, for names like
+# audit.env or production.env. An earlier version of this file listed `.env.*`
+# instead of `.env*`, and the dot is not cosmetic: `.env.*` requires a second
+# dot, so it cannot match .envrc at all.
+#
+# The negation is the other half. `.env*` also matches .env.example, which is
+# the one file in this family you are supposed to commit, so it is re-included
+# explicitly. Order matters: the negation has to come after the pattern it
+# undoes, since the last matching rule wins.
+.env*
 *.env
+!.env.example
 secrets/
 credentials*
 *.pem
 *.key
 
-# Logs, databases, editor and OS noise.
+# Logs, databases, editor and OS noise. Both sqlite spellings: the extension is
+# a convention rather than a rule, and .sqlite3 is at least as common as .sqlite.
 *.log
 *.sqlite
+*.sqlite3
 *.db
 __pycache__/
 .idea/
