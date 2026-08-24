@@ -1,0 +1,55 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Build and check output. The checker compiles each sample into a temporary
+# directory outside the repository, but a stray local run should not be
+# committable either.
+dist/
+*.tsbuildinfo
+
+# Credentials and secrets. Nothing in these notes needs any, which is exactly
+# when an accidental commit happens.
+#
+# BOTH glob forms, because neither implies the other. `.env*` is a prefix glob:
+# it catches .env, .env.local and .envrc, the last of which direnv uses and
+# people put exported secrets in. `*.env` is a suffix glob, for names like
+# audit.env or production.env. An earlier version of this file listed `.env.*`
+# instead of `.env*`, and the dot is not cosmetic: `.env.*` requires a second
+# dot, so it cannot match .envrc at all.
+#
+# The negation is the other half. `.env*` also matches .env.example, which is
+# the one file in this family you are supposed to commit, so it is re-included
+# explicitly. Order matters: the negation has to come after the pattern it
+# undoes, since the last matching rule wins.
+.env*
+*.env
+!.env.example
+secrets/
+credentials*
+*.pem
+*.key
+
+# SSH private keys, which the two patterns above do NOT cover: an SSH key in its
+# default filename has no extension at all. `id_rsa*` on its own is not enough
+# either, because ssh-keygen's default type is ed25519 now, not rsa (man
+# ssh-keygen: "ed25519 (the default)"), so id_ed25519 is the name a key generated
+# today gets and id_rsa is the legacy one. Enumerated rather than globbed as
+# `id_*`, which would also match ordinary source files like id_generator.js.
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
+*.ppk
+.ssh/
+
+# Logs, databases, editor and OS noise. Both sqlite spellings: the extension is
+# a convention rather than a rule, and .sqlite3 is at least as common as .sqlite.
+*.log
+*.sqlite
+*.sqlite3
+*.db
+__pycache__/
+.idea/
+.vscode/
+.DS_Store
